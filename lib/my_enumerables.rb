@@ -31,6 +31,37 @@ module Enumerable
     end
     self
   end
+
+  def my_inject(prod = nil)
+    total = prod
+    self.my_each do |elem|
+      total = yield(total, elem)
+    end
+    total
+  end
+
+  def my_map
+    mapped_array = []
+    self.my_each do |elem|
+      mapped_array << yield(elem)
+    end
+    mapped_array
+  end
+
+  def my_none?
+    self.my_each do |elem|
+      return false if yield(elem)
+    end
+    true
+  end
+
+  def my_select
+    selected = []
+    self.my_each do |elem|
+      selected << elem if yield(elem)
+    end
+    selected
+  end
 end
 
 # You will first have to define my_each
